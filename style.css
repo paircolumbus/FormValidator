@@ -1,0 +1,13 @@
+.container {
+  width: 720px;
+  margin: 0 auto;
+  
+}
+
+h1 {
+  border-bottom: 1px solid black;
+}
+
+.errors li {
+  color: red;
+}
