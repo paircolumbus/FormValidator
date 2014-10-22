@@ -19,6 +19,6 @@ You have been given a simple login form in `index.html`. Your goal is to create 
 If you're feeling especially daring, complete this challenge in coffeescript. Be sure to include your compiled javascript & original coffee files in your feature branch!
 
 ##Resources
-[JQuery](https://api.jquery.com/)
-[Coffeescript](http://coffeescript.org/)
-[JS to Coffee Compiler](http://js2coffee.org/) - for troubleshooting only :)
+- [JQuery](https://api.jquery.com/)  
+- [Coffeescript](http://coffeescript.org/)  
+- [JS to Coffee Compiler](http://js2coffee.org/) - for troubleshooting only :)
