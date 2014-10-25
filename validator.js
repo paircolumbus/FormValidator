@@ -4,7 +4,7 @@ $("li").hide();
 $(function(){
   //insert your code here
 
-  $(document).ready(function(){
+  $(function(){
     $("input[type=submit]").click(function(){
       // email validation
       // RFC 2822
