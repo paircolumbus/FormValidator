@@ -1,7 +1,5 @@
-  //insert your code here
-$(document).ready(function(){
-  $("li").hide();
-});
+//insert your code here
+$("li").hide();
 
 $(function(){
   //insert your code here
