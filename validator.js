@@ -1,6 +1,7 @@
 // jQuery elements
 var $email = $('form input[type=text]');
 var $password = $('form input[type=password]');
+var $submit = $('form input[type=submit]');
 var $errors = $('.errors li');
 
 // Form validators, matching to each of the four errors in order
@@ -29,6 +30,7 @@ var validators = [
 // Hides all validation errors
 function hideErrors() {
   $errors.hide();
+  $submit.prop('disabled', false);
 }
 
 // Runs all validators and display any errors that occur
@@ -37,6 +39,7 @@ function validate() {
   validators.forEach(function (validator, index) {
     if (!validator()) {
       $errors.eq(index).show();
+      $submit.prop('disabled', true);
     }
   });
 }
