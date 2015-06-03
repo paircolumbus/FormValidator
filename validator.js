@@ -1,7 +1,7 @@
 // $() is an alias for $(document).ready() when you pass it a function
 
 $(document).ready( function() {
-	$("ul").children().hide();
+	$(".errors").children().hide();
 
 	$("form").submit( function() {
 			ValidateForm();
@@ -25,10 +25,10 @@ $(document).ready( function() {
 
 		if (invalid_format) {
 			PreventSubmission;
-			$("ul li:nth-child(1)").show();
+			$(".errors li:nth-child(1)").show();
 		}
 		else {
-			$("ul li:nth-child(1)").hide();
+			$(".errors li:nth-child(1)").hide();
 		};
 	};
 
@@ -41,33 +41,29 @@ $(document).ready( function() {
 		var no_capital_chars = !capital_regex.test(password)
 		var no_numbers = !num_regex.test(password)
 
-
 		if (too_short) {
 			PreventSubmission;
-			$("ul li:nth-child(2)").show();
+			$(".errors li:nth-child(2)").show();
 		}
 		else {
-			$("ul li:nth-child(2)").hide();
+			$(".errors li:nth-child(2)").hide();
 		};
+
 
 		if (no_capital_chars) {
 			PreventSubmission;
-			$("ul li:nth-child(3)").show();
+			$(".errors li:nth-child(3)").show();
 		}
 		else {
-			$("ul li:nth-child(3)").hide();
+			$(".errors li:nth-child(3)").hide();
 		};
 		
 		if (no_numbers) {
 			PreventSubmission;
-			$("ul li:nth-child(4)").show();
+			$(".errors li:nth-child(4)").show();
 		}
 		else {
-			$("ul li:nth-child(4)").hide();
+			$(".errors li:nth-child(4)").hide();
 		};
 	};
 });
-
-// Are these functions queries or commands? Which shoould they be? 
-
-// Ask about addclass? Would it have made more sense to add classes to the li's? 
