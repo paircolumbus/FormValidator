@@ -6,9 +6,9 @@ $(document).ready( function() {
 	$("form").submit( function() {
 			ValidateForm();
 	});
+});
 
-
-	function ValidateForm() {
+function ValidateForm() {
 		ValidateEmail();
 		ValidatePassword();
 	};
@@ -37,12 +37,12 @@ $(document).ready( function() {
 		var capital_regex = /[A-Z]/;
 		var num_regex = /[0-9]/;
 		var min_length = 8; 
-		var too_short = password < min_length;
+		var too_short = password.length < min_length;
 		var no_capital_chars = !capital_regex.test(password)
 		var no_numbers = !num_regex.test(password)
 
 		if (too_short) {
-			PreventSubmission;
+			PreventSubmission();
 			$(".errors li:nth-child(2)").show();
 		}
 		else {
@@ -51,7 +51,7 @@ $(document).ready( function() {
 
 
 		if (no_capital_chars) {
-			PreventSubmission;
+			PreventSubmission();
 			$(".errors li:nth-child(3)").show();
 		}
 		else {
@@ -59,11 +59,10 @@ $(document).ready( function() {
 		};
 		
 		if (no_numbers) {
-			PreventSubmission;
+			PreventSubmission();
 			$(".errors li:nth-child(4)").show();
 		}
 		else {
 			$(".errors li:nth-child(4)").hide();
 		};
 	};
-});
