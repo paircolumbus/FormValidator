@@ -1,24 +1,22 @@
 check_email = (email) ->
   /[a-zA-Z0-9-._]+@[a-zA-Z0-9-._]+\.[a-zA-Z0-9-._]/.test(email)
 
-check_is_number = (password) ->
-  /\d/.test(password)
-
 check_long_enough = (password) ->
   password.length >= 8;
 
 check_is_capital = (password) ->
   /[A-Z]/.test(password)
 
-$(document).on 'ready page:load', ->
-  $('.errors li').hide()
-  return
+check_is_number = (password) ->
+  /\d/.test(password)
+
+$('.errors li').hide()
 
 $ ->
-  $("form").submit = (event) ->
+  $("form").submit (event) ->
 
     is_valid = false
-    $(".errors li").hide
+    $(".errors li").hide()
 
     email = $("input[placeholder='Email']").val()
     password = $("input[placeholder='Password']").val()
@@ -40,8 +38,7 @@ $ ->
       $(".errors li:nth-child(4)").show()
 
     if !is_valid
-      event.stopPropagation
-      event.preventDefault
-
+      event.stopPropagation()
+      event.preventDefault()
     return
   return

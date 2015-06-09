@@ -1,6 +1,5 @@
-$(document).on("ready page:load", function() {
-  $(".errors li").hide();
-});
+$(".errors li").hide();
+
 
 $(function(){
 

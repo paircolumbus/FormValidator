@@ -6,10 +6,6 @@
     return /[a-zA-Z0-9-._]+@[a-zA-Z0-9-._]+\.[a-zA-Z0-9-._]/.test(email);
   };
 
-  check_is_number = function(password) {
-    return /\d/.test(password);
-  };
-
   check_long_enough = function(password) {
     return password.length >= 8;
   };
@@ -18,17 +14,19 @@
     return /[A-Z]/.test(password);
   };
 
-  $(document).on('ready page:load', function() {
-    $('.errors li').hide();
-  });
+  check_is_number = function(password) {
+    return /\d/.test(password);
+  };
+
+  $('.errors li').hide();
 
   $(function() {
-    $("form").submit = function(event) {
+    $("form").submit(function(event) {
       var email, is_valid, password;
       is_valid = false;
-      $(".errors li").hide;
-      email = $("input[placeholder='Email']").val;
-      password = $("input[placeholder='Password']").val;
+      $(".errors li").hide();
+      email = $("input[placeholder='Email']").val();
+      password = $("input[placeholder='Password']").val();
       if (!check_email(email)) {
         is_valid = false;
         $(".errors li:nth-child(1)").show();
@@ -46,10 +44,10 @@
         $(".errors li:nth-child(4)").show();
       }
       if (!is_valid) {
-        event.stopPropagation;
-        event.preventDefault;
+        event.stopPropagation();
+        event.preventDefault();
       }
-    };
+    });
   });
 
 }).call(this);
