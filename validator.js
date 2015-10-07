@@ -11,7 +11,7 @@ function valid_domain_label(label)
 {
     if(label === undefined || label.length > 63 || label.length == 0)
         return false;
-    return label.match(/^[a-zA-Z0-9](?:[-a-aA-Z0-9]*[a-zA-Z0-9])?$/);
+    return label.match(/^[a-zA-Z0-9](?:[-a-zA-Z0-9]*[a-zA-Z0-9])?$/);
 }
 function valid_email_domain(domain)
 {
@@ -42,7 +42,6 @@ function display_error_unless(condition, index)
  
 $(function(){
 
-  //insert your code here
   $('.errors li').hide();
   $('input[type="text"]').blur(function(evt){
       var email = evt.target.value;
