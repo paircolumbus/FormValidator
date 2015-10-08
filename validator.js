@@ -1,5 +1,3 @@
-
-  //insert your code here
 function valid_email_local_part(lpart)
 {
     if(lpart === undefined || lpart.length > 64 || lpart.length == 0)
@@ -17,12 +15,9 @@ function valid_email_domain(domain)
 {
     if(domain === undefined || domain.length > 255 || domain.length == 0)
         return false;
-    // recognize double dots and dot at begin/end because split swallows empty fields
-    if(domain.match(/^\.|\.\.|\.$/))
-        return false;
     // a domain is one or more domain labels separated by .s
     var labels = domain.split(/\./)
-    return 0 == $.grep( labels, function(l){ !valid_domain_label(l) } );
+    return ($.grep( labels, function(l){ return !valid_domain_label(l) } )).length == 0;
 }
 function valid_email(email)
 {
@@ -39,7 +34,7 @@ function display_error_unless(condition, index)
     else
         $(select).show();
 }
- 
+
 $(function(){
 
   $('.errors li').hide();
@@ -48,10 +43,16 @@ $(function(){
       display_error_unless( valid_email(email), 0 );
   });
   $('input[type="password"]').blur(function(evt){
-     // alert('Left password field');
      var password = evt.target.value;
      display_error_unless( password.length >= 8, 1 );
      display_error_unless( password.match(/[A-Z]/), 2 );
      display_error_unless( password.match(/\d/), 3 );
+  });
+  $('form[name="sign_in"]').submit(function(evt){
+    if( $('.errors li').is(':visible') ) {
+        evt.preventDefault();
+        return false;
+    }
+    return true;
   });
 });
