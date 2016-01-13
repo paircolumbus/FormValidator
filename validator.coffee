@@ -12,19 +12,20 @@ passwordDigitPattern = /(.*[\d].*)/
 $('ul.errors li').hide()
  
 $('form').submit ->
-    $('ul.errors li').hide()
-    email = $('input[type="text"]').val()
+  $('ul.errors li').hide()
+  email = $('input[type="text"]').val()
 
-    if !emailPattern.test(email)
-      $('ul li:nth-child(1)').show()
+  if !emailPattern.test(email)
+    $('ul li:nth-child(1)').show()
 
-    password = $('input[type="password"]').val()
+  password = $('input[type="password"]').val()
 
-    if password.length < 8
-      $('ul li:nth-child(2)').show()
+  if password.length < 8
+    $('ul li:nth-child(2)').show()
 
-    if !passwordCapitalPattern.test(password)
-      $('ul li:nth-child(3)').show()
+  if !passwordCapitalPattern.test(password)
+    $('ul li:nth-child(3)').show()
 
-    if !passwordDigitPattern.test(password)
-      $('ul li:nth-child(4)').show()
+  if !passwordDigitPattern.test(password)
+    $('ul li:nth-child(4)').show()
+  return false

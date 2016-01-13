@@ -25,8 +25,9 @@
       $('ul li:nth-child(3)').show();
     }
     if (!passwordDigitPattern.test(password)) {
-      return $('ul li:nth-child(4)').show();
+      $('ul li:nth-child(4)').show();
     }
+    return false;
   });
 
 }).call(this);
