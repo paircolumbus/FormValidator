@@ -3,19 +3,19 @@ var valid = (function() {
   var email = function(email) {
     var expression = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
     return email.match(expression) !== null;
-  }
+  };
 
   var passwordLength = function(password) {
     return password.length > 7;
-  }
+  };
 
   var passwordCapitalization = function(password) {
     return password.toLowerCase() !== password;
-  }
+  };
 
   var passwordNumber = function(password) {
     return password.match(/\d+/g) !== null;
-  }
+  };
 
   return {
     email: email,
@@ -59,25 +59,26 @@ var validate = function() {
     if(!valid.email(inputValue('email'))) {
       return errorElement().invalidEmail.show();
     }
-  }
+  };
 
   var passwordLength = function() {
     if(!valid.passwordLength(inputValue('password'))) {
       return errorElement().shortPassword.show();
     }
-  }
+  };
 
   var passwordCapitalization = function() {
     if(!valid.passwordCapitalization(inputValue('password'))) {
       return errorElement().noCapitalPassword.show();
     }
-  }
+  };
 
   var passwordNumber = function() {
     if(!valid.passwordNumber(inputValue('password'))) {
       return errorElement().noNumberPassword.show();
     }
-  }
+  };
+
   return {
     email: email(),
     passwordLength: passwordLength(),
@@ -95,9 +96,8 @@ function validateInputs() {
     v.passwordCapitalization;
     v.passwordNumber;
   });
-}
+};
 
 $(function() {
   validateInputs();
 });
-
