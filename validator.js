@@ -53,38 +53,47 @@ function errorElement() {
     noNumberPasswordText: error.eq(3).text()
   }
 }
-  
-function validateEmail() {
-  if(!valid.email(inputValue('email'))) {
-    errorElement().invalidEmail.show();
-  }
-}
 
-function validatePasswordLength() {
-  if(!valid.passwordLength(inputValue('password'))) {
-    errorElement().shortPassword.show();
+var validate = function() {
+  var email = function() {
+    if(!valid.email(inputValue('email'))) {
+      return errorElement().invalidEmail.show();
+    }
   }
-}
 
-function validatePasswordCapitalization() {
-  if(!valid.passwordCapitalization(inputValue('password'))) {
-    errorElement().noCapitalPassword.show();
+  var passwordLength = function() {
+    if(!valid.passwordLength(inputValue('password'))) {
+      return errorElement().shortPassword.show();
+    }
   }
-}
 
-function validatePasswordNumber() {
-  if(!valid.passwordNumber(inputValue('password'))) {
-    errorElement().noNumberPassword.show();
+  var passwordCapitalization = function() {
+    if(!valid.passwordCapitalization(inputValue('password'))) {
+      return errorElement().noCapitalPassword.show();
+    }
   }
-}
+
+  var passwordNumber = function() {
+    if(!valid.passwordNumber(inputValue('password'))) {
+      return errorElement().noNumberPassword.show();
+    }
+  }
+  return {
+    email: email(),
+    passwordLength: passwordLength(),
+    passwordCapitalization: passwordCapitalization(),
+    passwordNumber: passwordNumber()
+  }
+};
 
 function validateInputs() {
   input('submit').on('click', function() {
     $('.container ul li').hide();
-    validateEmail();
-    validatePasswordLength();
-    validatePasswordCapitalization();
-    validatePasswordNumber();
+    var v = validate();
+    v.email;
+    v.passwordLength;
+    v.passwordCapitalization;
+    v.passwordNumber;
   });
 }
 
