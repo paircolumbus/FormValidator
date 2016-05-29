@@ -8,7 +8,8 @@ describe('Initial DOM', function() {
     setFixtures(HTMLFixture);
 
     error = errorElement();
-    
+    hideMessages();
+    validateInputs();
   });
 
   it('email input should be present', function() {

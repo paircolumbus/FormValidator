@@ -14,7 +14,6 @@ var HTMLFixture = `<div class="container">
 
 var styleFixture = `.errors li {
                                   color: red;
-                                  display: none;
                                 }`;
 
 

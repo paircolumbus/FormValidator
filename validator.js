@@ -87,9 +87,13 @@ var validate = function() {
   }
 };
 
+function hideMessages() {
+  $('.container ul li').hide();
+}
+
 function validateInputs() {
   input('submit').on('click', function() {
-    $('.container ul li').hide();
+    hideMessages();
     var v = validate();
     v.email;
     v.passwordLength;
@@ -99,5 +103,6 @@ function validateInputs() {
 };
 
 $(function() {
+  hideMessages(); //this would be unnecessary if they were initially hidden with css (which would be better)
   validateInputs();
 });

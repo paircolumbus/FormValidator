@@ -8,13 +8,13 @@ describe('DOM elements validation interaction', function() {
     setFixtures(HTMLFixture);
     
     error = errorElement();
-
+    hideMessages();
+    validateInputs();
   });
 
   it('shows invalid email message', function() {
     set('email', 'testgmail.com');
     set('password', 'Abc123!!');
-    validateInputs();
     input('submit').click();
     
     expect(error.invalidEmail).toBeVisible('invalid email');
@@ -26,7 +26,6 @@ describe('DOM elements validation interaction', function() {
   it('shows short password message', function() {
     set('email', 'test@gmail.com');
     set('password', 'Abc123!');
-    validateInputs();
     input('submit').click();
     
     expect(error.invalidEmail).not.toBeVisible('invalid email');
@@ -38,7 +37,6 @@ describe('DOM elements validation interaction', function() {
   it('shows no number password message', function() {
     set('email', 'test@gmail.com');
     set('password', 'Abcdef!!');
-    validateInputs();
     input('submit').click();
     
     expect(error.invalidEmail).not.toBeVisible('invalid email');
@@ -50,7 +48,6 @@ describe('DOM elements validation interaction', function() {
   it('shows no capital password message', function() {
     set('email', 'test@gmail.com');
     set('password', 'abc123!!');
-    validateInputs();
     input('submit').click();
     
     expect(error.invalidEmail).not.toBeVisible('invalid email');
@@ -62,7 +59,6 @@ describe('DOM elements validation interaction', function() {
   it('shows all error messages', function() {
     set('email', 'test@gmailcom');
     set('password', 'badtest');
-    validateInputs();
     input('submit').click();
     
     expect(error.invalidEmail).toBeVisible('invalid email');
