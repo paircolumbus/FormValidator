@@ -1,4 +1,4 @@
-#Form Validator
+# Form Validator
 
 __Skill Level:__ Intermediate  
 __Time Limit:__ 20-30 minutes
@@ -9,7 +9,7 @@ In most apps, validation takes places both on the client & server if we're not i
 
 __Question:__ Why do we do client-side validation?
 
-##Instructions
+## Instructions
 You have been given a simple login form in `index.html`. Your goal is to create a custom form validation script `validator.js` that prevents submission of the form and displays the correct error message if our user has entered invalid data. 
 
  - Do not edit the `index.html` or `style.css` files  
@@ -18,12 +18,12 @@ You have been given a simple login form in `index.html`. Your goal is to create 
  - Password should contain at least one capital letter
  - Password should contain at least one number (0-9)
 
-##Extra Credit
+## Extra Credit
 If you're feeling especially daring, complete this challenge in coffeescript. Be sure to include your compiled javascript & original coffee files in your feature branch!
 
 __Question:__ If you have an interest in professional Rails development, why is it probably a good idea to do this drill in Coffee instead of Javascript :)?
 
-##Resources
+## Resources
 - [JQuery](https://api.jquery.com/)  
 - [Coffeescript](http://coffeescript.org/)  
 - [JS to Coffee Compiler](http://js2coffee.org/) - for troubleshooting only :)
