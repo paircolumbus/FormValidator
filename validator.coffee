@@ -1,28 +1,27 @@
 class Validator
-    constructor: (@input) ->
+    constructor: (@input, @tests) ->
 
     validate: ->
-
-
-class EmailValidator extends Validator
-
-    constructor: (@input) ->
-        super @input
-
-    validate: ->
-        ampersandAndPeriodTest = new Test(new RegExp("^([\\w.-]+)@([\\w.-]+)\\.([\\w.-]+)"), @input, "Invalid Email Address. Must have an ampersand and a period.")
-
-        tests = [ampersandAndPeriodTest]
 
         passing = true
         @errorMessages = []
 
-        for test in tests
+        for test in @tests
             if not test.passes()
                 passing = false
                 @errorMessages.push test.errorMessage
 
         return passing
+
+
+class EmailValidator extends Validator
+
+    validate: ->
+        ampersandAndPeriodTest = new Test(new RegExp("^([\\w.-]+)@([\\w.-]+)\\.([\\w.-]+)"), @input, "Invalid Email Address. Must have an ampersand and a period.")
+
+        @tests = [ampersandAndPeriodTest]
+
+        super
 
 
 class PasswordValidator extends Validator
@@ -32,17 +31,10 @@ class PasswordValidator extends Validator
         capitalTest = new Test(new RegExp(".*[A-Z]+.*"), @input, "Password must have at least one capital letter.")
         numberTest = new Test(new RegExp(".*[0-9]+.*"), @input, "Password must have at least one number.")
 
-        tests = [lengthTest, capitalTest, numberTest]
+        @tests = [lengthTest, capitalTest, numberTest]
 
-        passing = true
-        @errorMessages = []
+        super
 
-        for test in tests
-            if not test.passes()
-                passing = false
-                @errorMessages.push test.errorMessage
-
-        return passing
 
 class Test
 
@@ -50,6 +42,7 @@ class Test
 
     passes: ->
         @regex.test @input
+
 
 errorMessageDomElement = $("ul.errors")
 errorMessageDomElement.empty()

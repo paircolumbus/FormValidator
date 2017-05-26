@@ -5,11 +5,25 @@
     hasProp = {}.hasOwnProperty;
 
   Validator = (function() {
-    function Validator(input) {
+    function Validator(input, tests) {
       this.input = input;
+      this.tests = tests;
     }
 
-    Validator.prototype.validate = function() {};
+    Validator.prototype.validate = function() {
+      var i, len, passing, ref, test;
+      passing = true;
+      this.errorMessages = [];
+      ref = this.tests;
+      for (i = 0, len = ref.length; i < len; i++) {
+        test = ref[i];
+        if (!test.passes()) {
+          passing = false;
+          this.errorMessages.push(test.errorMessage);
+        }
+      }
+      return passing;
+    };
 
     return Validator;
 
@@ -18,25 +32,15 @@
   EmailValidator = (function(superClass) {
     extend(EmailValidator, superClass);
 
-    function EmailValidator(input) {
-      this.input = input;
-      EmailValidator.__super__.constructor.call(this, this.input);
+    function EmailValidator() {
+      return EmailValidator.__super__.constructor.apply(this, arguments);
     }
 
     EmailValidator.prototype.validate = function() {
-      var ampersandAndPeriodTest, i, len, passing, test, tests;
+      var ampersandAndPeriodTest;
       ampersandAndPeriodTest = new Test(new RegExp("^([\\w.-]+)@([\\w.-]+)\\.([\\w.-]+)"), this.input, "Invalid Email Address. Must have an ampersand and a period.");
-      tests = [ampersandAndPeriodTest];
-      passing = true;
-      this.errorMessages = [];
-      for (i = 0, len = tests.length; i < len; i++) {
-        test = tests[i];
-        if (!test.passes()) {
-          passing = false;
-          this.errorMessages.push(test.errorMessage);
-        }
-      }
-      return passing;
+      this.tests = [ampersandAndPeriodTest];
+      return EmailValidator.__super__.validate.apply(this, arguments);
     };
 
     return EmailValidator;
@@ -51,21 +55,12 @@
     }
 
     PasswordValidator.prototype.validate = function() {
-      var capitalTest, i, len, lengthTest, numberTest, passing, test, tests;
+      var capitalTest, lengthTest, numberTest;
       lengthTest = new Test(new RegExp("^(.+){8,}"), this.input, "Password must be at least 8 characters long.");
       capitalTest = new Test(new RegExp(".*[A-Z]+.*"), this.input, "Password must have at least one capital letter.");
       numberTest = new Test(new RegExp(".*[0-9]+.*"), this.input, "Password must have at least one number.");
-      tests = [lengthTest, capitalTest, numberTest];
-      passing = true;
-      this.errorMessages = [];
-      for (i = 0, len = tests.length; i < len; i++) {
-        test = tests[i];
-        if (!test.passes()) {
-          passing = false;
-          this.errorMessages.push(test.errorMessage);
-        }
-      }
-      return passing;
+      this.tests = [lengthTest, capitalTest, numberTest];
+      return PasswordValidator.__super__.validate.apply(this, arguments);
     };
 
     return PasswordValidator;
