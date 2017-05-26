@@ -1,41 +1,36 @@
+class Test
+  constructor: (@sel, @func, @errMsg) ->
+
+  run: -> if @func $(@sel).val() then null else @errMsg
+
 class Validator
-  constructor: (@emailSel, @passSel, @errSel) ->
-    @emailRegex = /^([a-zA-Z0-9!#$%&'*\+\-\/=?^_`{|}~]+(?:\.*[a-zA-Z0-9!#$%&'*\+\-\/=?^_`{|}~]+)*)@([a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)+)$/
-    @upperCaseRegex = /.*[A-Z]+.*/
-    @digitRegex = /.*[0-9]+.*/
+  constructor: (@errList) ->
+    @tests = []
+
+  addTest: (t) ->
+    @tests.push t
 
   check: ->
-    $(@errSel).empty()
-    @checkEmail() && @checkPassword()
-
-  checkEmail: ->
-    s = $(@emailSel).val()
-    if not @emailRegex.test(s)
-      $(@errSel).append '<li>Please enter a valid email address</li>'
-      false
-    else
-      true
-
-  checkPassword: ->
-    s = $(@passSel).val()
+    $(@errList).empty()
     valid = true
-    if s.length < 8
-      $(@errSel).append '<li>Your password should be at least 8 characters long</li>'
-      valid = false
-    if not @upperCaseRegex.test s
-      $(@errSel).append '<li>Your password should contain at least one capital letter</li>'
-      valid = false
-    if not @digitRegex.test(s)
-      $(@errSel).append '<li>Your password should contain at least one number (0-9)</li>'
-      valid = false
+    for t in @tests
+      error = t.run()
+      if error != null
+        $(@errList).append '<li>' + error + '</li>'
+        valid = false
     valid
 
-email = 'input[type=text]'
-pass = 'input[type=password]'
-err = 'ul.errors'
-$(err).empty()
-v = new Validator email, pass, err
+emailRegex = /^([a-zA-Z0-9!#$%&'*\+\-\/=?^_`{|}~]+(?:\.*[a-zA-Z0-9!#$%&'*\+\-\/=?^_`{|}~]+)*)@([a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)+)$/
+upperCaseRegex = /.*[A-Z]+.*/
+digitRegex = /.*[0-9]+.*/
 
+v = new Validator 'ul.errors'
+v.addTest new Test 'input[type=text]', ((s) -> emailRegex.test s), 'Please enter a valid email address'
+v.addTest new Test 'input[type=password]', ((s) -> s.length >= 8), 'Your password should be at least 8 characters long'
+v.addTest new Test 'input[type=password]', ((s) -> upperCaseRegex.test s), 'Your password should contain at least one capital letter'
+v.addTest new Test 'input[type=password]', ((s) -> digitRegex.test s), 'Your password should contain at least one number (0-9)'
+
+$('ul.errors').empty()
 $('input[type=submit]').click (e) ->
   if not v.check()
     e.preventDefault()
