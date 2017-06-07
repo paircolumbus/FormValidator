@@ -10,7 +10,7 @@ In most apps, validation takes places both on the client & server if we're not i
 __Question:__ Why do we do client-side validation?
 
 ## Instructions
-You have been given a simple login form in `index.html`. Your goal is to create a custom form validation script `validator.js` that prevents submission of the form and displays the correct error message if our user has entered invalid data. 
+You have been given a simple login form in `index.html`. Your goal is to create a custom form validation script `validator.coffee` that prevents submission of the form and displays the correct error message if our user has entered invalid data. 
 
  - Do not edit the `index.html` or `style.css` files  
  - A valid email address (this could be tricky)
