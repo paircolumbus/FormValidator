@@ -4,7 +4,7 @@
 
   jQuery(function() {
     return (function($) {
-      var EMAIL_PATTERN, Validation, createObjectSelector, hasCapitalLetter, hasDigit, isArray, isMinimumLength, isValidEmail, selectEmail, selectPassword, sequential, setup;
+      var EMAIL_PATTERN, Validation, createObjectSelector, hasCapitalLetter, hasDigit, isArray, isMinimumLength, isValidEmail, selectEmail, selectPassword, sequential, setup, toArray;
       EMAIL_PATTERN = /^[\w-.]+@(?:\w+\.)+[a-z]{2,}$/i;
       Validation = (function() {
         function Validation(validationFn, element) {
@@ -27,6 +27,9 @@
         return Validation;
 
       })();
+      toArray = function(obj) {
+        return [].slice.call(obj);
+      };
       isArray = Array.isArray || function(value) {
         return {}.toString.call(value) === '[object Array]';
       };
@@ -38,25 +41,28 @@
         };
       };
       sequential = function() {
-        var fns;
+        var fns, reducer;
         fns = slice.call(arguments);
         if (isArray(arguments[0])) {
           fns = arguments[0];
         }
-        return function(cb) {
-          var initialArgs;
-          initialArgs = slice.call(arguments.slice(1));
-          return fns.reduce((function(args, fn) {
+        reducer = function(cb) {
+          return function(args, fn) {
             var result;
-            if (!isArray(args)) {
-              result = fn(this, [args]);
+            if (!isArray(args[0])) {
+              result = fn.apply(this, args);
             }
-            if (isArray(args)) {
-              result = fn(this, args);
+            if (isArray(args[0])) {
+              result = fn.apply(this, args[0]);
             }
             cb(fn, result);
             return args;
-          }), initialArgs);
+          };
+        };
+        return function(cb) {
+          var initialArgs;
+          initialArgs = slice.call(toArray(arguments).slice(1));
+          return fns.reduce(reducer(cb), initialArgs);
         };
       };
       isValidEmail = function(email) {
@@ -77,10 +83,10 @@
       selectEmail = createObjectSelector('email');
       setup = function() {
         var emailField, errorList, formElement, passwdCapitalReq, passwdDigitReq, passwdLengthReq, passwordField, validEmailReq, validator;
-        formElement = $('ul[form[name="sign_in"]]');
+        formElement = $('form[name="sign_in"]');
         emailField = formElement.find('input:text').first();
         passwordField = formElement.find('input:password').first();
-        errorList = formElement.children();
+        errorList = $('ul.errors').children();
         validEmailReq = errorList[0], passwdLengthReq = errorList[1], passwdCapitalReq = errorList[2], passwdDigitReq = errorList[3];
         errorList.hide();
         validator = sequential([new Validation(selectEmail(isValidEmail), validEmailReq), new Validation(selectPassword(isMinimumLength(8)), passwdLengthReq), new Validation(selectPassword(hasCapitalLetter), passwdCapitalReq), new Validation(selectPassword(hasDigit), passwdDigitReq)]);
